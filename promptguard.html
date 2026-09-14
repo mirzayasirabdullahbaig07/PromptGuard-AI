@@ -149,7 +149,7 @@
         <div class="logo-icon">🛡️</div>
         <span class="logo-name">PromptGuard</span>
       </div>
-      <div class="logo-sub">Real RAG · Groq · llama-3.3-70b-versatile</div>
+      <div class="logo-sub">Real RAG · Groq · openai/gpt-oss-120b</div>
     </div>
     <nav class="nav">
       <div class="nav-section">Analyze</div>
@@ -175,10 +175,10 @@
     <div class="topbar">
       <div>
         <div class="topbar-title" id="topTitle">Scan a prompt</div>
-        <div class="topbar-sub" id="topSub">Real embeddings · llama-3.3-70b-versatile · nomic-embed-text · cosine similarity</div>
+        <div class="topbar-sub" id="topSub">Real embeddings · openai/gpt-oss-120b · nomic-embed-text · cosine similarity</div>
       </div>
       <div style="display:flex;gap:6px;align-items:center">
-        <span class="pill p-red">llama-3.3-70b · Groq</span>
+        <span class="pill p-red">openai/gpt-oss-120b · Groq</span>
         <span class="pill p-blue">nomic-embed-text</span>
         <span class="pill p-rag" id="ragBadge" style="display:none">RAG active</span>
       </div>
@@ -427,7 +427,7 @@ async function groqChat(messages, sys = '', maxTokens = 600) {
   const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + GROQ_KEY },
-    body: JSON.stringify({ model: 'llama-3.3-70b-versatile', messages: msgs, max_tokens: maxTokens, temperature: 0.1 })
+    body: JSON.stringify({ model: 'openai/gpt-oss-120b', messages: msgs, max_tokens: maxTokens, temperature: 0.1 })
   });
   const d = await resp.json();
   if (!resp.ok) throw new Error(d.error?.message || 'Groq API error ' + resp.status);
@@ -496,7 +496,7 @@ async function analyze() {
       if (rag) ragCtx = '\n\nRELEVANT POLICY CONTEXT (retrieved via cosine similarity on 768-dim vectors):\n' + hits.map(h => h.text).join('\n\n');
     }
 
-    document.getElementById('scanMsg').textContent = 'Analyzing with llama-3.3-70b-versatile…';
+    document.getElementById('scanMsg').textContent = 'Analyzing with openai/gpt-oss-120b…';
     const sys = `You are PromptGuard, an expert AI security analyst.${rag ? ' Ground your verdict in the policy context below.' : ''}${ragCtx}
 
 Respond ONLY with valid JSON — no markdown, no preamble:
